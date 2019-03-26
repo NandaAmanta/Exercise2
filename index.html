@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kalkulator</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="cont-penampil">
+            <p class="penampilOutPut">
+                
+            </p>
+            <span>+</span>
+            <span>-</span>
+            <span>x</span>
+            <span>/</span>
+            <span>%</span>
+        </div>
+        <div class="tombol">
+            <button value="9">9</button>
+            <button value="8">8</button>
+            <button value="7">7</button>
+            <button id="penambahan">+</button>
+            <button value="6">6</button>
+            <button value="5">5</button>
+            <button value="4">4</button>
+            <button id="pengurangan">-</button>
+            <button value="3">3</button>
+            <button value="2">2</button>
+            <button value="1">1</button>
+            <button id="pengalian">x</button>
+            <button value="." id="float">.</button>
+            <button value="0">0</button>
+            <button id="modulus">%</button>
+            <button id="pembagian">/</button>
+            <button id="clear">C</button>
+            <button id="hasil" class="hasil">=</button>
+            <button id="del">del</button>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        //var yang akan dioperasikan
+        var a,b,operasi,isFloat;
+        
+        //mengambil elemen yang dibutuhkan
+        const button = document.getElementsByTagName("button");
+        const penampilOutPut = document.querySelector(".penampilOutPut");
+        const penambahan = document.getElementById("penambahan");
+        const pembagian = document.getElementById("pembagian");
+        const pengalian = document.getElementById("pengalian");
+        const del = document.getElementById("del");
+        const float = document.getElementById("float");
+        const pengurangan = document.getElementById("pengurangan");
+        const modulus =document.getElementById("modulus")
+        const clear = document.getElementById( "clear" )
+        const tandaOperasi = document.querySelectorAll("span")
+        const hasil = document.getElementById("hasil")
+        
+
+        
+        for ( let i = 0 ; i < button.length ; i++ ){
+            button[i].addEventListener("click",function(){
+                
+                penampilOutPut.innerHTML+=button[i].value
+            })
+        }
+
+        float.addEventListener( "click",function(){
+            isFloat =true;
+        } )
+
+        //operasi
+        
+        penambahan.addEventListener("click",function(){
+            if(!a){
+                a = penampilOutPut.innerHTML
+                
+                
+            }
+            hapusTandaOpr();
+            tandaOperasi[0].classList.add("opacity")
+            penampilOutPut.innerHTML="";
+            operasi = "penambahan";
+           
+        })
+        pengurangan.addEventListener("click",function(){
+            if(!a){
+                a = penampilOutPut.innerHTML
+                
+                
+            }
+            hapusTandaOpr();
+            tandaOperasi[1].classList.add("opacity")
+            penampilOutPut.innerHTML="";
+            operasi = "pengurangan"
+        })
+        pembagian.addEventListener("click",function(){
+            if(!a){
+                a = penampilOutPut.innerHTML
+                
+                
+            }
+            hapusTandaOpr();
+            tandaOperasi[3].classList.add("opacity")
+            penampilOutPut.innerHTML="";
+            operasi = "pembagian"
+            
+        })
+        pengalian.addEventListener("click",function(){
+            if(!a){
+               
+                a = penampilOutPut.innerHTML
+                
+                
+            }
+            hapusTandaOpr();
+            tandaOperasi[2].classList.add("opacity")
+            penampilOutPut.innerHTML="";
+            operasi = "pengalian"
+            
+        })
+        modulus.addEventListener("click",function(){
+            if(!a){
+                a = penampilOutPut.innerHTML
+                
+                
+            }
+            hapusTandaOpr();
+            tandaOperasi[4].classList.add("opacity")
+            penampilOutPut.innerHTML="";
+            operasi = "modulus"
+        })
+        del.addEventListener("click",function(){
+            
+            a = penampilOutPut.innerHTML;
+            var row = [];
+            for( let i = 0 ; i<a.length ; i++ ){
+                row[i]+= a.charAt(i)
+               row[i] = row[i][row[i].length-1];
+               
+            }
+            row.pop()
+            
+            penampilOutPut.innerHTML = row.join("");
+   
+        })
+        clear.addEventListener("click",function(){
+            penampilOutPut.innerHTML="";
+            a="";
+            operasi="";
+            hapusTandaOpr()
+        })
+        hasil.addEventListener("click",function(){
+            hapusTandaOpr()
+            if(!a){
+                return
+            }
+            if( isFloat ){
+                a=parseFloat( a );
+                b = parseFloat(penampilOutPut.innerHTML);
+            }else{
+                a=parseInt( a );
+                b = parseInt(penampilOutPut.innerHTML);
+            }
+            
+            
+
+            if (operasi =="penambahan"){
+                penampilOutPut.innerHTML=a+b
+            }else if( operasi == "pembagian" ){
+                penampilOutPut.innerHTML=a/b
+            }else if( operasi == "pengalian" ){
+                penampilOutPut.innerHTML=a*b
+            }else if(operasi == "pengurangan"){
+                penampilOutPut.innerHTML=a-b;
+            }else if( operasi == "modulus" ){
+                penampilOutPut.innerHTML=a%b;
+            }
+
+            a="";
+            b="";
+        })
+
+        //fungsi
+        function hapusTandaOpr(){
+            for ( let i = 0 ; i<tandaOperasi.length;i++ ){
+                tandaOperasi[i].classList.remove("opacity")
+            }
+        }
+        
+
+
+    </script>
+</body>
+</html>
